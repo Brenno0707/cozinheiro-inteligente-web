@@ -29,60 +29,79 @@ Siga os passos abaixo para configurar e rodar a aplicação localmente.
 * Python 3.x instalado.
 * Uma Chave de API do Gemini, que pode ser obtida no [Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key).
 
-### 1. Clonar o Repositório
+🚀 Como Rodar o Projeto
 
-Abra seu terminal (Git Bash) e clone o projeto:
+1. Clonar o Repositório
 
-```bash
+Abra seu terminal (Recomendado: Git Bash ou terminal do PyCharm) e clone o projeto:
+
 git clone [https://github.com/Brenno0707/cozinheiro-inteligente-web.git](https://github.com/Brenno0707/cozinheiro-inteligente-web.git)
 cd cozinheiro-inteligente-web
 
 
 2. Configurar o Ambiente Virtual
-É uma boa prática isolar as dependências do projeto:
 
-Bash
+É crucial isolar as dependências do projeto para evitar conflitos:
 
 # Cria o ambiente virtual
 python -m venv venv
 
-# Ativa o ambiente virtual (Windows)
-# Se estiver usando o Git Bash ou PowerShell, o comando pode variar.
-# Geralmente:
+# Ativa o ambiente virtual (Comando para Windows)
 .\venv\Scripts\activate
 
-3. Instalar Dependências
-Instale todas as bibliotecas necessárias listadas no requirements.txt:
 
-Bash
+3. Instalar Dependências
+
+Instale todas as bibliotecas necessárias, incluindo a biblioteca google-genai (que substitui o SDK antigo):
 
 pip install -r requirements.txt
+
+
 4. Configurar a Chave de API
-Crie um arquivo chamado .env na raiz da pasta do projeto e adicione sua chave de API nele.
+
+Crie um arquivo chamado .env (sem extensão!) na raiz da pasta do projeto e adicione sua chave de API nele.
 
 Conteúdo do .env:
 
 GEMINI_API_KEY="SUA_CHAVE_AQUI_GEMINI_API"
-5. Rodar a Aplicação
-Inicie o servidor Flask:
 
-Bash
+
+⚠️ Atenção: Problema de Sintaxe (Muito Importante)
+
+As instruções originais do projeto usam uma sintaxe antiga da biblioteca do Gemini. Você deve substituir o código do arquivo app.py pela versão corrigida.
+
+Altere a função gerar_receita em app.py para usar a sintaxe compatível com o SDK atual:
+
+# Versão COMPATÍVEL com a sua instalação:
+# Substitua o código da função 'gerar_receita' pela sintaxe abaixo:
+
+# ----------------------------------------------------
+# from google.generativeai import GenerativeModel, Client (se importado acima)
+def gerar_receita(ingredientes_lista):
+    # ... código de verificação de chave ...
+    client = genai.Client() 
+    MODEL_NAME = 'gemini-2.5-flash' 
+    
+    # Sintaxe estável (resolve AttributeErrors)
+    model = client.get_model(MODEL_NAME) # OU use 'model = client.models[MODEL_NAME]' se preferir
+
+    # ... restante do código para montar o prompt ...
+    
+    response = model.generate_content(
+        contents=prompt_usuario
+    )
+    # ... restante do código ...
+
+
+5. Rodar a Aplicação
+
+Após corrigir o app.py, inicie o servidor Flask:
 
 python app.py
 
 
+Acesse o navegador na URL indicada pelo terminal (http://127.0.0.1:5000/).
+
 📝 Licença
+
 Este projeto está sob a licença MIT.
-
-
-### 🏁 Próximos Passos Finais:
-
-1.  Crie o arquivo **`README.md`** na pasta do projeto e cole o conteúdo acima.
-2.  **Adicione e Envie o `README.md`** ao GitHub:
-    ```bash
-    git add README.md
-    git commit -m "Adiciona README.md detalhado"
-    git push origin master
-    ```
-
-Sua página do GitHub ficará agora com uma descrição completa do seu projeto!
