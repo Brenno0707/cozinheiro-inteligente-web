@@ -20,7 +20,7 @@ O projeto demonstra uma arquitetura completa de backend (Flask) e frontend moder
 * **Google GenAI SDK (gemini-2.5-flash):** Geração do conteúdo da receita.
 
 #### Frontend
-* **HTML5, Tailwind CSS:** Estrutura e estilização moderna e responsiva.
+* **HTML5, Tailwind, CSS:** Estrutura e estilização moderna e responsiva.
 * **JavaScript:** Manipulação do DOM e interatividade.
 
 ---
